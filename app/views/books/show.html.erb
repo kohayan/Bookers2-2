@@ -1,0 +1,34 @@
+<%= render 'users/info', book: @book, user: @user %>
+
+<h2>Book detail</h2>
+
+<table class="table">
+	<tbody>
+		<tr>
+			<td>
+				<%= link_to user_path(@user) do %>
+				<%= attachment_image_tag @user, :profile_image, :fill, 40, 40, format: 'jpeg', class: "pull-left profile-img", fallback: "no_image.jpg", size:'40x40' %>
+				<br>
+				<%= @user.name %>
+				<% end %>
+			</td>
+			<td>
+				<%= link_to book_path(@bookdetail) do %>
+				<%= @bookdetail.title %>
+				<% end %>
+			</td>
+			<td><%= @bookdetail.body %></td>
+			<td>
+				<% if @bookdetail.user == current_user %>
+				<%= link_to 'edit', edit_book_path, class: "btn btn-default" %>
+				<% end %>
+			</td>
+			<td>
+				<% if @bookdetail.user == current_user %>
+				<%= link_to 'Destroy', book_path(@bookdetail), method: :delete, "data-confirm" => "Are you sure?", class: "btn btn-default" %>
+				<% end %>
+
+			</td>
+		</tr>
+	</tbody>
+</table>
