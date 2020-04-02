@@ -8,6 +8,7 @@
 							<th></th>
 							<th>Title</th>
 							<th>Option</th>
+							<th></th>
 						</tr>
 					</thead>
 					<%  @books.each do |book| %>
@@ -24,7 +25,9 @@
 							<td>
 								<%= book.body %>
 							</td>
-						</tr>
+							<td>
+								コメント数：<%= book.book_comments.count %>
+							</tr>
 					</tbody>
 					<% end %>
 				</table>
