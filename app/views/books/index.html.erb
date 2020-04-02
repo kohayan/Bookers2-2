@@ -20,6 +20,8 @@
 				<th></th>
 				<th>Title</th>
 				<th>Opinion</th>
+				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 		<%  @books.each do |book| %>
@@ -35,6 +37,27 @@
 				</td>
 				<td>
 					<%= book.body %>
+				</td>
+
+				<% if Favorite.find_by(user_id: current_user.id, book_id: book.id) %>
+				<td>
+					<%= link_to book_favorites_path(book), method: :delete do %>
+						<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+					<%= book.favorites.count %>
+					<% end %>
+				</td>
+					<% else %>
+				<td>
+					<%= link_to book_favorites_path(book), method: :post do %>
+					<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+					<%= book.favorites.count %>
+					<% end %>
+				</td>
+				<% end %>
+
+				<td>
+					コメント数：
+					<%= book.book_comments.count %>
 				</td>
 			</tr>
 		</tbody>

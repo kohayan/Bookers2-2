@@ -19,18 +19,60 @@
 								<% end %>
 							</td>
 							<td><%= @bookdetail.body %></td>
+							<% if Favorite.find_by(user_id: current_user.id, book_id: @bookdetail.id) %>
 							<td>
-								<% if @bookdetail.user == current_user %>
-								<%= link_to 'Edit', edit_book_path, class: "btn btn-default" %>
+								<%= link_to book_favorites_path(@bookdetail), method: :delete do %>
+								<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+								<%= @bookdetail.favorites.count %>
 								<% end %>
 							</td>
+							<% else %>
 							<td>
-								<% if @bookdetail.user == current_user %>
-								<%= link_to 'Destroy', book_path(@bookdetail), method: :delete, "data-confirm" => "Are you sure?", class: "btn btn-default" %>
+								<%= link_to book_favorites_path(@bookdetail), method: :post do %>
+								<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+								<%= @bookdetail.favorites.count %>
 								<% end %>
+							</td>
+							<% end %>
 
+							<td>
+								コメント数：
+								<%= @bookdetail.book_comments.count %>
 							</td>
+
+							<% if @bookdetail.user == current_user %>
+							<td>
+								<%= link_to 'Edit', edit_book_path, class: "btn btn-default" %>
+							</td>
+							<td>
+								<%= link_to 'Destroy', book_path(@bookdetail), method: :delete, "data-confirm" => "Are you sure?", class: "btn btn-default" %>
+							</td>
+							<% end %>
 						</tr>
 					</tbody>
 				</table>
+
+				<h3>Comment</h3>
+				<table>
+				<% @bookdetail.book_comments.each do |comment| %>
+					<tbody>
+						<tr>
+							<td>
+								<%= comment.comment %>
+							</td>
+							<% if current_user.id == comment.user_id %>
+							<td>
+								<%= link_to "削除", book_book_comment_path(@bookdetail,comment), method: :delete %>
+							</td>
+							<% end %>
+						</tr>
+					</tbody>
+				<% end %>
+				</table>
+
+				<%= form_for [@bookdetail,@comment] do |f| %>
+					<%= f.text_area :comment %>
+					<%= f.submit "送信" %>
+				<% end %>
+
 			</div>
