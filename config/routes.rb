@@ -6,6 +6,8 @@ root 'books#top'
 
 get 'home/about' => 'books#about'
 
+get 'search' => 'search#search', as: 'saerch'
+
 resources :users do
 	member do
 		get :following, :followers

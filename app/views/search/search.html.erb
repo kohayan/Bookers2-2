@@ -1,0 +1,9 @@
+<% if @answers == nil %>
+	<P>検索結果が存在しません</P>
+<% elsif @which == 'user' %>
+	<h1>Users</h1>
+	<%= render 'users/index', users: @answers %>
+<% elsif @which == 'book' %>
+	<h1>Books</h1>
+	<%= render 'books/index', books: @answers %>
+<% end %>

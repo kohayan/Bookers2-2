@@ -1,2 +1,6 @@
 <h1>Followers</h1>
+<% if @users.count > 0 %>
 <%= render 'index', user: @user, users:@users %>
+<% else %>
+<P>ユーザーはいません</P>
+<% end %>
