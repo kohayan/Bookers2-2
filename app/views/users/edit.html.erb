@@ -1,16 +1,8 @@
 <h2>User info</h2>
-<% if @user.errors.any? %>
-<div id="error_explanation">
-	<h2><%= @user.errors.count %>件のerrorが発生しました。</h2>
-	<ul>
-		<% @user.errors.full_messages.each do |message| %>
-		<li><%= message %></li>
-		<% end %>
-	</ul>
-</div>
-<% end %>
+
 
 <%= form_for(@user) do |f| %>
+<%= render 'layouts/errors', obj: @user %>
 <h5>Name</h5>
 <%= f.text_field :name %>
 <h5>Image</h5>
