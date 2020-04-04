@@ -5,7 +5,7 @@ class BookCommentsController < ApplicationController
   	@comment.book_id = params[:book_id]
   	if @comment.save
       flash[:notice] = "Comment was successfully created."
-      redirect_to book_path(params[:book_id])
+      render :index
     else
       @book = Book.find(params[:book_id])
       @user = @book.user
@@ -14,12 +14,12 @@ class BookCommentsController < ApplicationController
   end
 
   def destroy
-  	comment = BookComment.find_by(id: params[:id], book_id: params[:book_id])
-    if current_user.id != comment.user_id
+  	@comment = BookComment.find_by(id: params[:id], book_id: params[:book_id])
+    if current_user.id != @comment.user_id
       redirect_to controller: 'books', action: 'show'
     end
-  	comment.destroy
-  	redirect_back(fallback_location: root_path)
+  	@comment.destroy
+    render :index
   end
 
   private
