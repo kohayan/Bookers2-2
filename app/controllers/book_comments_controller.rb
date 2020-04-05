@@ -7,9 +7,7 @@ class BookCommentsController < ApplicationController
       flash[:notice] = "Comment was successfully created."
       render :index
     else
-      @book = Book.find(params[:book_id])
-      @user = @book.user
-      render '/books/show'
+      render :errors
     end
   end
 
