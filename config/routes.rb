@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'chat/show'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 devise_for :users, :controllers => {
     :registrations => 'users/registrations'
@@ -15,6 +16,9 @@ resources :users do
 		get :following, :followers
 	end
 end
+
+  resources :chats, only: [:create, :show]
+
 
 resources :books do
 	resource :favorites, only:[:create, :destroy]
