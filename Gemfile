@@ -70,4 +70,5 @@ group :production do
   gem 'mysql2'
 end
 gem 'jp_prefecture'
+gem 'whenever', require: false
 
